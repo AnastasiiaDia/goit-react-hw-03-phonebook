@@ -26,6 +26,19 @@ export class App extends Component {
   onChangeImput = event => {
     this.setState({ filter: event.target.value.trim() });
   };
+  componentDidMount() {
+    if (localStorage.getItem('contacts'))
+      this.setState({ contacts: JSON.parse(localStorage.getItem('contacts')) });
+    // const contacts = JSON.parse(localStorage.getItem('contacts'));
+    // if (contacts) {
+    //   this.setState({ contacts });
+    // }
+  }
+  componentDidUpdate(_, prevState) {
+    if (prevState.contact !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
   render() {
     const filteredContacts = this.state.contacts.filter(contact =>
       contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
