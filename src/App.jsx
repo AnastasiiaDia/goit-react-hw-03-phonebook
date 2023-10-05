@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { Form } from './Form/Form';
-import { ContactList } from './ContactList/ContactList';
-import { Container } from './Container.styled';
-import { Input, Section } from './Form/FormElements.styled';
+import { Form } from './components/Form/Form';
+import { ContactList } from './components/ContactList/ContactList';
+import { Container } from './components/Container.styled';
+import { Input, Section } from './components/Form/FormElements.styled';
 // import { Container } from '';
 
 export class App extends Component {
@@ -38,6 +38,9 @@ export class App extends Component {
     if (prevState.contact !== this.state.contacts) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
+  }
+  componentWillUnmount() {
+    localStorage.removeItem('contacts');
   }
   render() {
     const filteredContacts = this.state.contacts.filter(contact =>
